@@ -6,29 +6,67 @@ from PIL import Image, ImageDraw
 horizontal_offset = unit  # Variable
 vertical_offset = unit0_5  # Constant
 
+in_pair = False
+
 
 def find_text_width(text):
     width = 0
 
-    for letter in text:
-        character = characters.consonants.get(letter)
-        width += character.get("size") + unit
+    for i in range(len(text)):
+        if text[i] in ('a', 'e', 'i', 'o', 'u') and i == 0:
+            character = characters.initial_vowels.get(text[i])
+            width += character.get("size") + unit
+
+        elif text[i] in ('a', 'e', 'i', 'o', 'u') and i != 0:
+            pass
+
+        else:
+            character = characters.consonants.get(text[i])
+            width += character.get("size") + unit
 
     return int(width) + unit
 
 
 def render_letters(text, image):
+    count = 0
     global horizontal_offset
+    global in_pair
 
-    for letter in text:
-        character = characters.consonants.get(letter)
-        lines = character.get("lines")
+    while True:
+        if text[count] in ('a', 'e', 'i', 'o', 'u'):
+            in_pair = False
+        else:
+            in_pair = True
 
-        for line in lines:
-            image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
-                        line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
+        if not in_pair:
+            character = characters.initial_vowels.get(text[count])
 
-        horizontal_offset += character.get("size") + unit
+            lines = character.get("lines")
+            for line in lines:
+                image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
+                            line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
+
+            horizontal_offset += character.get("size") + unit
+            count += 1
+
+        else:
+            character = characters.consonants.get(text[count])
+            lines = character.get("lines")
+            for line in lines:
+                image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
+                            line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
+
+            diacritic = characters.diacritic_vowels.get(text[count + 1])
+            lines = diacritic.get("lines")
+            for line in lines:
+                image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
+                            line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
+
+            horizontal_offset += character.get("size") + unit
+            count += 2
+
+        if count >= len(text):
+            break
 
 
 def main():
@@ -46,5 +84,5 @@ def main():
     base_image.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

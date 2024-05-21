@@ -90,3 +90,76 @@ consonants = {
         "size": unit0_5,
     },
 }
+
+initial_vowels = {
+    "a": {
+        "lines": [
+            (0, unit0_5, 0, unit0_5 + unit)  # Vertical Line
+        ],
+        "size": line_width,
+    },
+    "i": {
+        "lines": [
+            (0, unit0_5, unit, unit0_5),  # Horizontal Line
+            (unit0_5, unit0_5, unit0_5, unit0_5 + unit)  # Vertical Line
+        ],
+        "size": unit,
+    },
+    "e": {
+        "lines": [
+            (0, unit0_5 + unit, unit, unit0_5 + unit),  # Horizontal Line
+            (unit0_5, unit0_5, unit0_5, unit0_5 + unit)  # Vertical Line
+        ],
+        "size": unit,
+    },
+    "o": {
+        "lines": [
+            (0, 0, unit0_5, unit0_5),  # Left Diagonal
+            (unit0_5, unit0_5, unit, 0),  # Right Diagonal
+            (unit0_5, unit0_5, unit0_5, unit0_5 + unit)  # Vertical Line
+        ],
+        "size": unit,
+    },
+    "u": {
+        "lines": [
+            (0, unit2, unit0_5, unit0_5 + unit),  # Left Diagonal
+            (unit0_5, unit0_5 + unit, unit, unit2),  # Right Diagonal
+            (unit0_5, unit0_5, unit0_5, unit0_5 + unit)  # Vertical Line
+        ],
+        "size": unit,
+    }
+}
+
+diacritic_vowels = {
+    "a": {
+        "lines": [
+        ],
+        "size": line_width,
+    },
+    "i": {
+        "lines": [
+            (0, -unit0_5, unit, -unit0_5),  # Horizontal Line
+        ],
+        "size": unit,
+    },
+    "e": {
+        "lines": [
+            (0, unit3 - unit0_5, unit, unit3 - unit0_5),  # Horizontal Line
+        ],
+        "size": unit,
+    },
+    "o": {
+        "lines": [
+            (0, -unit0_5, unit0_5, 0),  # Left Diagonal
+            (unit0_5, 0, unit, -unit0_5),  # Right Diagonal
+        ],
+        "size": unit,
+    },
+    "u": {
+        "lines": [
+            (0, unit2 + unit0_5, unit0_5, unit2),  # Left Diagonal
+            (unit0_5, unit2, unit, unit2 + unit0_5),  # Right Diagonal
+        ],
+        "size": unit,
+    }
+}
