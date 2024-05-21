@@ -8,20 +8,27 @@ vertical_offset = unit0_5  # Constant
 
 
 def find_text_width(text):
-    return unit * (len(text) * 2 + 1)  # + (2 * line_width)
+    width = 0
+
+    for letter in text:
+        character = characters.consonants.get(letter)
+        width += character.get("size") + unit
+
+    return int(width) + unit
 
 
 def render_letters(text, image):
     global horizontal_offset
 
     for letter in text:
-        lines = characters.consonants.get(letter).get("lines")
+        character = characters.consonants.get(letter)
+        lines = character.get("lines")
 
         for line in lines:
             image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
                         line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
 
-        horizontal_offset += unit2  # + 2 * line_width
+        horizontal_offset += character.get("size") + unit
 
 
 def main():
