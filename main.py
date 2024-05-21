@@ -1,14 +1,23 @@
+from config import *
+import characters
+
 from PIL import Image, ImageDraw
 
-unit = 50
-unit2 = unit * 2
-unit3 = unit * 3
-unit0_5 = unit * 0.5
+horizontal_offset = 10 + unit  # Variable
+vertical_offset = unit0_5  # Constant
 
 
 # TODO
 def find_text_width(text):
-    return unit * len(text)  # Temporary Code
+    return (unit * (len(text) * 2 + 1)) + (2 * line_width)  # Temporary Code
+
+
+def render_letters(text, image):
+    lines = characters.p.get("lines")
+
+    for line in lines:
+        image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
+                    line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
 
 
 def main():
@@ -18,10 +27,11 @@ def main():
     base_image = Image.new(mode="RGB", size=(text_width, unit * 3), color=(255, 255, 255))
     text_image = ImageDraw.Draw(base_image)
 
-    text_image.line((0, 0, 0, unit3), fill=(0, 0, 0), width=10)
-    text_image.line((0, unit3/2, text_width, unit3/2), fill=(0, 0, 0), width=10)
-    text_image.line((text_width, 0, text_width, unit3), fill=(0, 0, 0), width=10)
+    text_image.line((0, 0, 0, unit3), fill=(0, 0, 0), width=line_width)
+    text_image.line((0, unit3 / 2, text_width, unit3 / 2), fill=(0, 0, 0), width=line_width)
+    text_image.line((text_width, 0, text_width, unit3), fill=(0, 0, 0), width=line_width)
 
+    render_letters(text_to_render, text_image)
     base_image.show()
 
 
