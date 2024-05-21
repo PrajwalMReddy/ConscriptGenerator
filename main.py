@@ -3,21 +3,25 @@ import characters
 
 from PIL import Image, ImageDraw
 
-horizontal_offset = 10 + unit  # Variable
+horizontal_offset = unit  # Variable
 vertical_offset = unit0_5  # Constant
 
 
-# TODO
 def find_text_width(text):
-    return (unit * (len(text) * 2 + 1)) + (2 * line_width)  # Temporary Code
+    return unit * (len(text) * 2 + 1)  # + (2 * line_width)
 
 
 def render_letters(text, image):
-    lines = characters.p.get("lines")
+    global horizontal_offset
 
-    for line in lines:
-        image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
-                    line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
+    for letter in text:
+        lines = characters.consonants.get(letter).get("lines")
+
+        for line in lines:
+            image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
+                        line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
+
+        horizontal_offset += unit2  # + 2 * line_width
 
 
 def main():
