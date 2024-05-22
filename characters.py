@@ -91,7 +91,7 @@ consonants = {
     },
 }
 
-initial_vowels = {
+individual_vowels = {
     "a": {
         "lines": [
             (0, unit0_5, 0, unit0_5 + unit)  # Vertical Line

@@ -6,31 +6,10 @@ from PIL import Image, ImageDraw
 horizontal_offset = unit  # Variable
 vertical_offset = unit0_5  # Constant
 
-in_pair = False
-
 
 def find_text_width(text):
-    width = 0
-
-    for i in range(len(text)):
-        if text[i] in ('a', 'e', 'i', 'o', 'u') and i == 0:
-            character = characters.initial_vowels.get(text[i])
-            width += character.get("size") + unit
-
-        elif text[i] in ('a', 'e', 'i', 'o', 'u') and i != 0:
-            pass
-
-        else:
-            character = characters.consonants.get(text[i])
-            width += character.get("size") + unit
-
-    return int(width) + unit
-
-
-def render_letters(text, image):
     count = 0
-    global horizontal_offset
-    global in_pair
+    width = 0
 
     while True:
         if text[count] in ('a', 'e', 'i', 'o', 'u'):
@@ -39,9 +18,36 @@ def render_letters(text, image):
             in_pair = True
 
         if not in_pair:
-            character = characters.initial_vowels.get(text[count])
+            character = characters.individual_vowels.get(text[count])
+            width += character.get("size") + unit
+            count += 1
 
+        else:
+            character = characters.consonants.get(text[count])
+            width += character.get("size") + unit
+            count += 2
+
+        if count >= len(text):
+            break
+
+    return int(width) + unit
+
+
+def render_letters(text, image):
+    count = 0
+    global horizontal_offset
+
+    while True:
+        if text[count] in ('a', 'e', 'i', 'o', 'u'):
+            in_pair = False
+        else:
+            in_pair = True
+
+        if not in_pair:
+            # Rendering The Individual Vowel
+            character = characters.individual_vowels.get(text[count])
             lines = character.get("lines")
+
             for line in lines:
                 image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
                             line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
@@ -50,14 +56,18 @@ def render_letters(text, image):
             count += 1
 
         else:
+            # Rendering The Base Consonant
             character = characters.consonants.get(text[count])
             lines = character.get("lines")
+
             for line in lines:
                 image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
                             line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
 
+            # Rendering The Vowel Diacritic
             diacritic = characters.diacritic_vowels.get(text[count + 1])
             lines = diacritic.get("lines")
+
             for line in lines:
                 image.line((line[0] + horizontal_offset, line[1] + vertical_offset,
                             line[2] + horizontal_offset, line[3] + vertical_offset), fill=(0, 0, 0), width=line_width)
