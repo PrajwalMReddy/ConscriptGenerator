@@ -163,3 +163,13 @@ diacritic_vowels = {
         "size": unit,
     }
 }
+
+markings = {
+    "cross": {
+        "lines": [
+            (unit0_5 / 2, unit + unit0_5 / 2, unit - unit0_5 / 2, unit2 - unit0_5 / 2),  # South
+            (unit0_5 / 2, unit2 - unit0_5 / 2, unit - unit0_5 / 2, unit + unit0_5 / 2),  # North
+        ],
+        "size": unit0_5 / 2,
+    }
+}
