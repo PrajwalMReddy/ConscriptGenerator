@@ -89,6 +89,64 @@ consonants = {
         ],
         "size": unit0_5,
     },
+    "r": {
+        "lines": [
+            (0, 0, unit, 0),  # Top Horizontal
+            (0, 0, 0, unit2),  # Left Vertical
+            (unit, 0, unit, unit2)  # Right Vertical
+        ],
+        "size": unit,
+    },
+    "l": {
+        "lines": [
+            (0, unit2, unit, unit2),  # Bottom Horizontal
+            (0, 0, 0, unit2),  # Left Vertical
+            (unit, 0, unit, unit2)  # Right Vertical
+        ],
+        "size": unit,
+    },
+    "j": {
+        "lines": [
+            (unit, 0, unit, unit2),  # Right Vertical
+            (unit0_5, 0, unit, unit),  # Top South
+            (unit0_5, unit2, unit, unit),  # Bottom North
+        ],
+        "size": unit,
+    },
+    "w": {
+        "lines": [
+            (0, 0, 0, unit2),  # Left Vertical
+            (0, unit, unit0_5, 0),  # Top North
+            (0, unit, unit0_5, unit2),  # Bottom South
+        ],
+        "size": unit,
+    },
+    "m": {
+        "lines": [
+            (unit0_5, 0, unit0_5, unit2),  # Vertical
+            (unit0_5, unit, unit, 0),  # Top North
+            (0, 0, unit0_5, unit),  # Top South
+            (unit0_5, unit, unit, unit2),  # Bottom South
+            (0, unit2, unit0_5, unit),  # Bottom North
+        ],
+        "size": unit,
+    },
+    "n": {
+        "lines": [
+            (unit0_5, 0, unit0_5, unit2),  # Vertical
+            (unit0_5, unit, unit, 0),  # Top North
+            (0, 0, unit0_5, unit),  # Top South
+        ],
+        "size": unit,
+    },
+    "ṅ": {
+        "lines": [
+            (unit0_5, 0, unit0_5, unit2),  # Vertical
+            (unit0_5, unit, unit, unit2),  # Bottom South
+            (0, unit2, unit0_5, unit),  # Bottom North
+        ],
+        "size": unit,
+    },
 }
 
 individual_vowels = {
@@ -174,8 +232,8 @@ markings = {
     },
     "long": {
         "lines": [
-            (unit0_5 / 2, unit0_5, unit0_5 / 2, unit0_5 * 3/2),  # Top
-            (unit0_5 / 2, unit2 - unit0_5, unit0_5 / 2, unit2 - unit0_5 * 3/2),  # Bottom
+            (unit0_5 / 2, unit0_5, unit0_5 / 2, unit0_5 * 3 / 2),  # Top
+            (unit0_5 / 2, unit2 - unit0_5, unit0_5 / 2, unit2 - unit0_5 * 3 / 2),  # Bottom
         ],
         "size": line_width,
     }
