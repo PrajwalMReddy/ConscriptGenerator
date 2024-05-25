@@ -149,6 +149,37 @@ consonants = {
     },
 }
 
+conjunct_consonants = {
+    "r": {
+        "lines": [
+            (0, 0, unit, 0),  # Top Horizontal
+            (unit, 0, unit, unit2)  # Right Vertical
+        ],
+        "size": unit,
+    },
+    "l": {
+        "lines": [
+            (0, unit2, unit, unit2),  # Bottom Horizontal
+            (unit, 0, unit, unit2)  # Right Vertical
+        ],
+        "size": unit,
+    },
+    "j": {
+        "lines": [
+            (-unit0_5, unit3 - unit0_5, unit0_5, unit3 - unit0_5),  # Horizontal
+            (unit0_5, unit3 - unit0_5, unit0_5, unit2 - unit0_5),  # Vertical
+        ],
+        "size": unit0_5,
+    },
+    "w": {
+        "lines": [
+            (-unit0_5, -unit0_5, unit0_5, -unit0_5),  # Horizontal
+            (unit0_5, -unit0_5, unit0_5, unit0_5),  # Vertical
+        ],
+        "size": unit,
+    },
+}
+
 individual_vowels = {
     "a": {
         "lines": [
