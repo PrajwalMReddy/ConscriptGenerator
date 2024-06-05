@@ -147,6 +147,24 @@ consonants = {
         ],
         "size": unit,
     },
+    "h": {
+        "lines": [
+            (0, 0, unit, 0),  # Top Horizontal
+            (0, unit2, unit, unit2),  # Bottom Horizontal
+            (0, 0, unit, unit2),  # Diagonal Right
+            (unit, 0, 0, unit2),  # Diagonal Left
+        ],
+        "size": unit,
+    },
+    "c": {
+        "lines": [
+            (0, 0, 0, unit2),  # Left Vertical
+            (unit, 0, unit, unit2),  # Right Vertical
+            (0, 0, unit, unit2),  # Diagonal South
+            (0, unit2, unit, 0),  # Diagonal North
+        ],
+        "size": unit,
+    },
 }
 
 conjunct_consonants = {
@@ -254,6 +272,13 @@ diacritic_vowels = {
 }
 
 markings = {
+    "long": {
+        "lines": [
+            (unit0_5 / 2, unit0_5, unit0_5 / 2, unit0_5 * 3 / 2),  # Top
+            (unit0_5 / 2, unit2 - unit0_5, unit0_5 / 2, unit2 - unit0_5 * 3 / 2),  # Bottom
+        ],
+        "size": line_width,
+    },
     "dead": {
         "lines": [
             (unit0_5 / 2, unit + unit0_5 / 2, unit - unit0_5 / 2, unit2 - unit0_5 / 2),  # South
@@ -261,11 +286,11 @@ markings = {
         ],
         "size": unit0_5 / 2,
     },
-    "long": {
+    "foreign": {
         "lines": [
-            (unit0_5 / 2, unit0_5, unit0_5 / 2, unit0_5 * 3 / 2),  # Top
-            (unit0_5 / 2, unit2 - unit0_5, unit0_5 / 2, unit2 - unit0_5 * 3 / 2),  # Bottom
+            (unit0_5 / 2, unit + unit0_5 / 2, unit - unit0_5 / 2, unit2 - unit0_5 / 2),  # South
+            (unit0_5 / 2, unit2 - unit0_5 / 2, unit - unit0_5 / 2, unit + unit0_5 / 2),  # North
         ],
-        "size": line_width,
+        "size": unit0_5 / 2,
     }
 }

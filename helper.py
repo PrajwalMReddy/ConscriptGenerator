@@ -5,10 +5,12 @@ horizontal_offset = unit  # Variable
 vertical_offset = unit0_5  # Constant
 
 short_vowels_list = ('a', 'e', 'i', 'o', 'u')
-long_vowels_list = ('ā', 'ē', 'ī', 'о̄', 'ū')
+long_vowels_list = ('ā', 'ē', 'ī', 'ō', 'ū')
 vowels_list = short_vowels_list + long_vowels_list
 
 conjunct_consonants_list = ('r', 'l', 'j', 'w')
+foreign_consonants_list = {
+}
 
 
 def in_pair(text, count):
