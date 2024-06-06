@@ -10,7 +10,15 @@ vowels_list = short_vowels_list + long_vowels_list
 
 conjunct_consonants_list = ('r', 'l', 'j', 'w')
 foreign_consonants_list = {
+    'b': 'p', 'd': 't'
 }
+
+
+def is_foreign(letter):
+    if letter in foreign_consonants_list:
+        return True
+    else:
+        return False
 
 
 def in_pair(text, count):
@@ -29,6 +37,10 @@ def find_text_width(text):
     width = 0
 
     while True:
+        if is_foreign(text[count]):
+            marking = characters.markings.get("foreign")
+            width += marking.get("size") + unit
+
         if not in_pair(text, count):
             # Individual Vowels
             if text[count] in short_vowels_list:
@@ -46,10 +58,18 @@ def find_text_width(text):
 
             # Dead Consonants + Marking
             else:
-                marking = characters.markings.get("dead")
-                character = characters.consonants.get(text[count])
-                width += marking.get("size") + unit
-                width += character.get("size") + unit
+                # Dead And Foreign Markings Occupy The Same Column
+                if not is_foreign(text[count]):
+                    marking = characters.markings.get("dead")
+                    width += marking.get("size") + unit
+
+                if is_foreign(text[count]):
+                    character = characters.consonants.get(foreign_consonants_list.get(text[count]))
+                    width += character.get("size") + unit
+                else:
+                    character = characters.consonants.get(text[count])
+                    width += character.get("size") + unit
+
                 count += 1
 
         else:
@@ -59,8 +79,12 @@ def find_text_width(text):
                 width += marking.get("size") + unit
 
             # Base Consonants In Pairs
-            character = characters.consonants.get(text[count])
-            width += character.get("size") + unit
+            if is_foreign(text[count]):
+                character = characters.consonants.get(foreign_consonants_list.get(text[count]))
+                width += character.get("size") + unit
+            else:
+                character = characters.consonants.get(text[count])
+                width += character.get("size") + unit
 
             # Conjunct Consonants (In Pairs)
             if text[count + 1] in conjunct_consonants_list:
@@ -90,15 +114,15 @@ def render_text(text, image):
 
     while True:
         if not in_pair(text, count):
+            # Rendering The Individual Short Vowel
             if text[count] in short_vowels_list:
-                # Rendering The Individual Short Vowel
                 character = characters.individual_vowels.get(text[count])
                 render_character(character, image)
                 horizontal_offset += character.get("size") + unit
                 count += 1
 
+            # Rendering The Individual Long Vowel
             elif text[count] in long_vowels_list:
-                # Rendering The Individual Long Vowel
                 marking = characters.markings.get("long")
                 render_character(marking, image)
                 horizontal_offset += marking.get("size") + unit
@@ -107,13 +131,24 @@ def render_text(text, image):
                 horizontal_offset += character.get("size") + unit
                 count += 1
 
+            # Rendering The Dead Cross And Consonant
             else:
-                # Rendering The Dead Cross And Consonant
-                marking = characters.markings.get("dead")
-                render_character(marking, image)
-                horizontal_offset += marking.get("size") + unit
-                character = characters.consonants.get(text[count])
-                render_character(character, image)
+                # Rendering The Foreign Cross If Any
+                if is_foreign(text[count]):
+                    marking_foreign = characters.markings.get("foreign")
+                    render_character(marking_foreign, image)
+
+                marking_dead = characters.markings.get("dead")
+                render_character(marking_dead, image)
+                horizontal_offset += marking_dead.get("size") + unit
+
+                if is_foreign(text[count]):
+                    character = characters.consonants.get(foreign_consonants_list.get(text[count]))
+                    render_character(character, image)
+                else:
+                    character = characters.consonants.get(text[count])
+                    render_character(character, image)
+
                 horizontal_offset += character.get("size") + unit
                 count += 1
 
@@ -124,9 +159,18 @@ def render_text(text, image):
                 render_character(marking, image)
                 horizontal_offset += marking.get("size") + unit
 
-            # Rendering The Base Consonant
-            character = characters.consonants.get(text[count])
-            render_character(character, image)
+            # Rendering The Base Consonant And Foreign Cross If Any
+            if is_foreign(text[count]):
+                marking_foreign = characters.markings.get("foreign")
+                render_character(marking_foreign, image)
+                horizontal_offset += marking_foreign.get("size") + unit
+
+            if is_foreign(text[count]):
+                character = characters.consonants.get(foreign_consonants_list.get(text[count]))
+                render_character(character, image)
+            else:
+                character = characters.consonants.get(text[count])
+                render_character(character, image)
 
             # Rendering The Diacritic Then Conjunct Consonant If Any
             if text[count + 1] in conjunct_consonants_list:

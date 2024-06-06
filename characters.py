@@ -288,8 +288,8 @@ markings = {
     },
     "foreign": {
         "lines": [
-            (unit0_5 / 2, unit + unit0_5 / 2, unit - unit0_5 / 2, unit2 - unit0_5 / 2),  # South
-            (unit0_5 / 2, unit2 - unit0_5 / 2, unit - unit0_5 / 2, unit + unit0_5 / 2),  # North
+            (unit0_5 / 2, unit0_5 / 2, unit - unit0_5 / 2, unit - unit0_5 / 2),  # South
+            (unit0_5 / 2, unit - unit0_5 / 2, unit - unit0_5 / 2, unit0_5 / 2),  # North
         ],
         "size": unit0_5 / 2,
     }
